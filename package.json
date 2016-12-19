@@ -1,0 +1,38 @@
+{
+  "name": "fh-cards",
+  "version": "1.0.0",
+  "description": "A standard 52-card deck library",
+  "main": "./lib/index.js",
+  "typings": "./lib/index",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^3.2.0",
+    "typescript": "^2.1.4",
+    "typings": "^2.0.0"
+  },
+  "scripts": {
+    "build": "tsc -p . || true",
+    "test": "npm run build && npm run test-all",
+    "test-all": "mocha --reporter spec --check-leaks --bail ./lib/**/*.spec.js || true"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kylejune/fh-cards.git"
+  },
+  "keywords": [
+    "cards",
+    "card",
+    "52",
+    "deck",
+    "poker",
+    "standard",
+    "joker",
+    "jokers"
+  ],
+  "author": "Kyle June <kylejune1415@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kylejune/fh-cards/issues"
+  },
+  "homepage": "https://github.com/kylejune/fh-cards#readme"
+}

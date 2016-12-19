@@ -1,0 +1,5 @@
+# npm
+npm-debug.log*
+
+# build tools
+.travis.yml
