@@ -1,6 +1,9 @@
 export const RANKS: string[] = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A', 'W'];
 export const SUITS: string[] = ['c', 'd', 'h', 's'];
 
+export const RANK_NAMES: string[] = ['Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace', 'Joker'];
+export const SUIT_NAMES: string[] = ['Clubs', 'Diamonds', 'Hearts', 'Spades'];
+
 /**
  * A card from a standard 52-card deck. Includes joker/wild cards.
  */
@@ -70,21 +73,23 @@ export class Card {
   }
 
   /**
-   * This compares cards by their rank. If their ranks are equal, it will then compare them by their suits.
+   * Get cards full name. Examples provided below.
    *
-   * @param a The first Card.
-   * @param b The second Card.
-   * @return If 0, they are equal. If < 0, then `a` is less than `b`. if > 0, then `a` is greater than `b`.
+   * ```javascript
+   * (new Card(12, 0)).toFullName(); // 'Ace of Clubs'
+   * (new Card(0, 1)).toFullName(); // 'Two of Diamonds'
+   * (new Card(7, 2)).toFullName(); // 'Nine of Hearts'
+   * (new Card(8, 0)).toFullName(); // 'Ten of Spades'
+   * ```
+   *
+   * @return The full name of the card.
    */
-  static compare(a: Card, b: Card): number {
-    let result: number = Card.compareRank(a, b);
+  toFullName(): string {
+    if (this.rank === 13)
+      return RANK_NAMES[13];
 
-    if (result === 0)
-      result = Card.compareSuit(a, b);
-
-    return result;
+    return `${RANK_NAMES[this.rank]} of ${SUIT_NAMES[this.suit]}`;
   }
-
 
   /**
    * This compares cards by their rank.
@@ -116,5 +121,21 @@ export class Card {
       return 1;
 
     return 0;
+  }
+
+  /**
+   * This compares cards by their rank. If their ranks are equal, it will then compare them by their suits.
+   *
+   * @param a The first Card.
+   * @param b The second Card.
+   * @return If 0, they are equal. If < 0, then `a` is less than `b`. if > 0, then `a` is greater than `b`.
+   */
+  static compare(a: Card, b: Card): number {
+    let result: number = Card.compareRank(a, b);
+
+    if (result === 0)
+      result = Card.compareSuit(a, b);
+
+    return result;
   }
 }
