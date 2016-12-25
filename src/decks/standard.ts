@@ -11,15 +11,15 @@ export class StandardDeck extends Deck {
   constructor(jokers: number = 0) {
     super();
 
-    this.cards = StandardDeck.cards.slice();
+    this.add(StandardDeck.cards);
 
     for (let i = 0; i < jokers; i++) {
-      this.cards.push(jokerCard);
+      this.add(jokerCard);
     }
   }
 
   /**
-   * Reuse cards in duplicate decks.
+   * An array of cards that are used in this type of deck.
    */
   static get cards(): Card[] {
     if (typeof standardCards === 'undefined') {

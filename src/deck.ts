@@ -13,6 +13,21 @@ export class Deck {
   }
 
   /**
+   * Adds cards to the bottom of the deck.
+   *
+   * @param card The card you want to add to the deck.
+   * @param cards An array of cards you want to add to the deck.
+   */
+  add(card: Card): void;
+  add(cards: Card[]): void;
+  add(x: Card | Card[]): void {
+    if (Array.isArray(x))
+      this.cards.push(...x);
+    else
+      this.cards.push(x);
+  }
+
+  /**
    * Draws a card from the top of the deck.
    *
    * @return The card that was drawn.
@@ -50,8 +65,8 @@ export class Deck {
    */
   shuffle(): void {
     this.restart();
-    
-    for (let i = 51; i > 0; i--) {
+
+    for (let i = this.cards.length - 1; i > 0; i--) {
       let temp: Card = this.cards[i];
       let randomIndex: number = Math.floor(Math.random() * (i + 1));
 
@@ -62,9 +77,11 @@ export class Deck {
 
   /**
    * Sorts the cards in the deck.
+   *
+   * @param compareFunction Optional. The function used to compare cards. Defaults to `Card.compare`.
    */
-  sort(): void {
+  sort(compareFunction: (a: Card, b: Card) => number = Card.compare): void {
     this.restart();
-    this.cards.sort(Card.compare);
+    this.cards.sort(compareFunction);
   }
 }

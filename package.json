@@ -13,7 +13,7 @@
   "scripts": {
     "build": "tsc -p . || true",
     "test": "npm run build && npm run test-all",
-    "test-all": "mocha --reporter spec --check-leaks --bail ./lib/**/*.spec.js || true"
+    "test-all": "mocha --reporter spec --check-leaks --bail \"./lib/**/*.spec.js\" || true"
   },
   "repository": {
     "type": "git",
