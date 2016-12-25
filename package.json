@@ -1,6 +1,6 @@
 {
   "name": "fh-cards",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A standard 52-card deck library",
   "main": "./lib/index.js",
   "typings": "./lib/index",
@@ -12,8 +12,8 @@
   },
   "scripts": {
     "build": "tsc -p . || true",
-    "test": "npm run build && npm run test-all",
-    "test-all": "mocha --reporter spec --check-leaks --bail \"./lib/**/*.spec.js\" || true"
+    "install": "npm run build",
+    "test": "mocha --reporter spec --check-leaks --bail \"./lib/**/*.spec.js\" || true"
   },
   "repository": {
     "type": "git",
