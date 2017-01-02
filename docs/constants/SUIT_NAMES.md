@@ -1,4 +1,4 @@
-# SUITS
+# SUIT_NAMES
 
 Suit names.
 

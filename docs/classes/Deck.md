@@ -34,7 +34,7 @@ Adds cards to the bottom of the deck.
 
 Draws a card from the top of the deck.
 
-**Returns**: [Card]
+**Returns**: [Card]  
 The card that was drawn.
 
 ### draws(\[count\])
@@ -43,7 +43,7 @@ The card that was drawn.
 
 Draws cards from the top of the deck.
 
-**Returns**: [Card]\[\]
+**Returns**: [Card]\[\]  
 The cards drawn.
 
 ### restart()

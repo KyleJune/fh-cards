@@ -15,7 +15,7 @@ npm install fh-cards
 
 ## Features
 
-- Uses the Fisher-Yates shuffle algorithm
+- Uses the [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) algorithm
 - Optional Joker cards
 
 ## Example
