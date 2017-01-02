@@ -1,19 +1,30 @@
-export const RANKS: string[] = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A', 'W'];
-export const SUITS: string[] = ['c', 'd', 'h', 's'];
-
-export const RANK_NAMES: string[] = ['Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace', 'Joker'];
-export const SUIT_NAMES: string[] = ['Clubs', 'Diamonds', 'Hearts', 'Spades'];
+import { RANKS, SUITS, RANK_NAMES, SUIT_NAMES } from "./constants";
 
 /**
- * A card from a standard 52-card deck. Includes joker/wild cards.
+ * A card from a standard 52-card deck.  
  */
 export class Card {
+  /**
+   * The index of the rank in [RANKS].
+   */
   public rank: number;
+
+  /**
+   * The index of the suit in [SUITS].
+   */
   public suit: number;
 
+  /**
+   * @param rank The rank or index of the rank in [RANKS].
+   * @param suit The suit or index of the suit in [SUITS].
+   * @param card An object.  
+   * - `rank`: The rank or index of the rank in [RANKS].
+   * - `suit`: Optional. The suit or index of the suit in [SUITS].
+   * @param value The string representation of a card.
+   */
   constructor(rank: number | string, suit?: number | string);
   constructor(card: {rank: number | string, suit?: number | string});
-  constructor(card: string);
+  constructor(value: string);
   constructor(x: any, y?: number | string) {
     let rank: number | string;
     let suit: number | string;
@@ -21,9 +32,9 @@ export class Card {
     if (typeof x === "object") {
       rank = x.rank;
       suit = x.suit;
-    } else if (typeof x === 'string' && typeof y === 'undefined') {
-      if ((x.length === 1 && x.toUpperCase() !== 'W') || x.length !== 2)
-        throw new Error('Invalid card');
+    } else if (typeof x === "string" && typeof y === "undefined") {
+      if ((x.length === 1 && x.toUpperCase() !== SUITS[13]) || x.length !== 2)
+        throw new Error("Invalid card");
 
       rank = x.charAt(0);
       suit = x.charAt(1);
@@ -32,21 +43,21 @@ export class Card {
       suit = y;
     }
 
-    if (typeof rank === 'string')
+    if (typeof rank === "string")
       rank = RANKS.indexOf(rank.toUpperCase());
 
-    if (typeof rank !== 'number' || rank < 0 || rank >= RANKS.length)
-      throw new Error('Invalid rank');
+    if (typeof rank !== "number" || rank < 0 || rank >= RANKS.length)
+      throw new Error("Invalid rank");
 
     if (rank === 13) {
-      // Ignore suit for wildcard/joker
+      // Ignore suit for joker
       suit = -1;
     } else {
-      if (typeof suit === 'string')
+      if (typeof suit === "string")
         suit = SUITS.indexOf(suit.toLowerCase());
 
       if (suit < 0 || suit >= SUITS.length)
-        throw new Error('Invalid suit');
+        throw new Error("Invalid suit");
     }
 
     this.rank = rank;
@@ -54,32 +65,14 @@ export class Card {
   }
 
   /**
-   * Converts cards into a string representation. Examples provided below.
+   * Get the full name of the card.  
+   * Examples provided below.
    *
-   * ```javascript
-   * (new Card(12, 0)).toString(); // 'Ac'
-   * (new Card(0, 1)).toString(); // '2d'
-   * (new Card(7, 2)).toString(); // '9h'
-   * (new Card(8, 0)).toString(); // 'Ts'
-   * ```
-   *
-   * @return The card as a string.
-   */
-  toString(): string {
-    if (this.rank === 13)
-      return RANKS[13];
-    
-    return RANKS[this.rank] + SUITS[this.suit];
-  }
-
-  /**
-   * Get cards full name. Examples provided below.
-   *
-   * ```javascript
-   * (new Card(12, 0)).toFullName(); // 'Ace of Clubs'
-   * (new Card(0, 1)).toFullName(); // 'Two of Diamonds'
-   * (new Card(7, 2)).toFullName(); // 'Nine of Hearts'
-   * (new Card(8, 0)).toFullName(); // 'Ten of Spades'
+   * ```ts
+   * (new Card(12, 0)).toFullName(); // "Ace of Clubs"
+   * (new Card(0, 1)).toFullName(); // "Two of Diamonds"
+   * (new Card(7, 2)).toFullName(); // "Nine of Hearts"
+   * (new Card(8, 0)).toFullName(); // "Ten of Spades"
    * ```
    *
    * @return The full name of the card.
@@ -92,11 +85,51 @@ export class Card {
   }
 
   /**
-   * This compares cards by their rank.
+   * Get the string representation of the card.  
+   * Examples provided below.
    *
-   * @param a The first Card.
-   * @param b The second Card.
-   * @return If 0, their ranks are equal. If < 0, then `a.rank` is less than `b.rank`. if > 0, then `a.rank` is greater than `b.rank`.
+   * ```ts
+   * (new Card(12, 0)).toString(); // "Ac"
+   * (new Card(0, 1)).toString(); // "2d"
+   * (new Card(7, 2)).toString(); // "9h"
+   * (new Card(8, 0)).toString(); // "Ts"
+   * ```
+   *
+   * @return The string representation of the card.
+   */
+  toString(): string {
+    if (this.rank === 13)
+      return RANKS[13];
+
+    return RANKS[this.rank] + SUITS[this.suit];
+  }
+
+  /**
+   * This compares cards by their [rank] and then [suit].
+   *
+   * @param a The first [Card].
+   * @param b The second [Card].
+   * @return If 0, they are equal.  
+   * If < 0, then `a` is less than `b`.  
+   * If > 0, then `a` is greater than `b`.
+   */
+  static compare(a: Card, b: Card): number {
+    let result: number = Card.compareRank(a, b);
+
+    if (result === 0)
+      result = Card.compareSuit(a, b);
+
+    return result;
+  }
+
+  /**
+   * This compares cards by their [rank].
+   *
+   * @param a The first [Card].
+   * @param b The second [Card].
+   * @return If 0, their ranks are equal.  
+   * If < 0, then `a.rank` is less than `b.rank`.  
+   * If > 0, then `a.rank` is greater than `b.rank`.
    */
   static compareRank(a: Card, b: Card): number {
     if (a.rank < b.rank)
@@ -108,11 +141,13 @@ export class Card {
   }
 
   /**
-   * This compares cards by their suit.
+   * This compares cards by their [suit].
    *
-   * @param a The first Card.
-   * @param b The second Card.
-   * @return If 0, their suits are equal. If < 0, then `a.suit` is less than `b.suit`. if > 0, then `a.suit` is greater than `b.suit`.
+   * @param a The first [Card].
+   * @param b The second [Card].
+   * @return If 0, their suits are equal.  
+   * If < 0, then `a.suit` is less than `b.suit`.  
+   * If > 0, then `a.suit` is greater than `b.suit`.
    */
   static compareSuit(a: Card, b: Card): number {
     if (a.suit < b.suit)
@@ -121,21 +156,5 @@ export class Card {
       return 1;
 
     return 0;
-  }
-
-  /**
-   * This compares cards by their rank. If their ranks are equal, it will then compare them by their suits.
-   *
-   * @param a The first Card.
-   * @param b The second Card.
-   * @return If 0, they are equal. If < 0, then `a` is less than `b`. if > 0, then `a` is greater than `b`.
-   */
-  static compare(a: Card, b: Card): number {
-    let result: number = Card.compareRank(a, b);
-
-    if (result === 0)
-      result = Card.compareSuit(a, b);
-
-    return result;
   }
 }

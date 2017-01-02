@@ -1,20 +1,20 @@
-import * as assert from 'assert';
-import { Deck } from './deck';
-import { Card } from './card';
+import * as assert from "assert";
+import { Deck } from "./deck";
+import { Card } from "./card";
 
-describe('Deck', function () {
+describe("Deck", function () {
   let deck: Deck;
   let card: Card;
 
-  describe('constructor', function () {
-    it('should create an empty deck', function () {
+  describe("constructor", function () {
+    it("should create an empty deck", function () {
       deck = new Deck();
       assert.equal(deck.cards.length, 0);
     });
   });
 
-  describe('.add', function () {
-    it('should add a card to the bottom of the deck', function () {
+  describe(".add", function () {
+    it("should add a card to the bottom of the deck", function () {
       card = new Card(0, 0);
       deck.add(card);
       assert.equal(deck.cards[0], card);
@@ -24,7 +24,7 @@ describe('Deck', function () {
       assert.equal(deck.cards[1], card);
     });
 
-    it('should add an array of cards to the bottom of the deck', function () {
+    it("should add an array of cards to the bottom of the deck", function () {
       let cards: Card[] = [];
       cards.push(new Card(2, 0));
       cards.push(new Card(3, 0));
@@ -34,25 +34,25 @@ describe('Deck', function () {
     });
   });
 
-  describe('.draw', function () {
-    it('should draw a card from the top of the deck', function () {
+  describe(".draw", function () {
+    it("should draw a card from the top of the deck", function () {
       for (let i = 0; i < 4; i++) {
         card = deck.draw();
         assert.equal(card, deck.cards[i]);
       }
     });
 
-    it('should throw error if there are no cards left to draw', function () {
+    it("should throw error if there are no cards left to draw", function () {
       assert.throws(function () {
         deck.draw();
       });
     });
   });
 
-  describe('.draws', function () {
+  describe(".draws", function () {
     let cards: Card[];
-    
-    it('should draw 1 card by default', function () {
+
+    it("should draw 1 card by default", function () {
       deck.index = 0; // Manually restart deck
 
       cards = deck.draws();
@@ -60,22 +60,22 @@ describe('Deck', function () {
       assert.equal(cards[0], deck.cards[0]);
     });
 
-    it('should be able to draw more than 1 cards', function () {
+    it("should be able to draw more than 1 cards", function () {
       cards = deck.draws(2);
       assert.equal(cards.length, 2);
       assert.equal(cards[0], deck.cards[1]);
       assert.equal(cards[1], deck.cards[2]);
     });
 
-    it('should throw error if there are not enough cards to draw', function () {
+    it("should throw error if there are not enough cards to draw", function () {
       assert.throws(function () {
         deck.draws(2);
       });
     });
   });
 
-  describe('.restart', function () {
-    it('should restart the deck in the same order', function () {
+  describe(".restart", function () {
+    it("should restart the deck in the same order", function () {
       deck.restart();
       let cards: Card[] = deck.draws(4);
       deck.restart();
@@ -87,9 +87,9 @@ describe('Deck', function () {
     });
   });
 
-  describe('.shuffle', function () {
+  describe(".shuffle", function () {
     let cards: Card[];
-    it('should shuffle the cards in the deck', function () {
+    it("should shuffle the cards in the deck", function () {
       deck.restart();
       cards = deck.draws(4);
       deck.restart();
@@ -113,7 +113,7 @@ describe('Deck', function () {
       assert.equal(isDifferent, true);
     });
 
-    it('should not remove cards or duplicate cards', function () {
+    it("should not remove cards or duplicate cards", function () {
       deck.restart();
 
       assert.equal(deck.cards.length, cards.length);
@@ -135,10 +135,10 @@ describe('Deck', function () {
     });
   });
 
-  describe('.sort', function () {
-    it('should sort use default compare function if none provided', function () {
+  describe(".sort", function () {
+    it("should sort use default compare function if none provided", function () {
       deck.sort();
-      
+
       for (let i = 0; i < 4; i++) {
         card = deck.draw();
         assert.equal(card.rank, i);
@@ -146,7 +146,7 @@ describe('Deck', function () {
       }
     });
 
-    it('should sort using a provided compare function', function () {
+    it("should sort using a provided compare function", function () {
       deck.sort(function reverseCards(a: Card, b: Card) {
         return -1 * Card.compare(a, b);
       });

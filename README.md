@@ -16,11 +16,40 @@ npm install fh-cards
 ## Features
 
 - Uses the Fisher-Yates shuffle algorithm
-- Optional Joker/Wild cards
+- Optional Joker cards
+
+## Example
+
+This example is in TypeScript. It creates a standard deck, shuffles it, draws 2 cards, and then shows those two cards as strings.
+
+```ts
+import { Card, Deck, StandardDeck } from "fh-cards";
+
+let deck: Deck = new StandardDeck();
+deck.shuffle();
+
+let hand: Card[] = deck.draws(2);
+hand[0].toString(); // "8d"
+hand[1].toString(); // "Ac"
+```
+
+This example is in JavaScript. It does the same thing as the previous example.
+
+```js
+let fhc = require("fh-cards");
+let StandardDeck = fhc.StandardDeck;
+
+let deck = new StandardDeck();
+deck.shuffle();
+
+let hand = deck.draws(2);
+hand[0].toString(); // "Ts"
+hand[1].toString(); // "5h"
+```
 
 ## Documentation
 
-- None
+[API](docs/API.md)
 
 ## License
 

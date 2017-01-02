@@ -1,10 +1,17 @@
-import { Card } from './card';
+import { Card } from "./card";
 
 /**
  * A deck of cards.
  */
 export class Deck {
+  /**
+   * The cards in the deck.
+   */
   cards: Card[];
+
+  /**
+   * The current draw position.
+   */
   index: number;
 
   constructor() {
@@ -15,7 +22,7 @@ export class Deck {
   /**
    * Adds cards to the bottom of the deck.
    *
-   * @param card The card you want to add to the deck.
+   * @param card The [card] you want to add to the deck.
    * @param cards An array of cards you want to add to the deck.
    */
   add(card: Card): void;
@@ -34,7 +41,7 @@ export class Deck {
    */
   draw(): Card {
     if (this.index >= this.cards.length)
-      throw new Error('Not enough cards');
+      throw new Error("Not enough cards");
 
     return this.cards[this.index++];
   }
@@ -43,11 +50,11 @@ export class Deck {
    * Draws cards from the top of the deck.
    *
    * @param count The number of cards to draw.
-   * @return An array containing the cards drawn.
+   * @return The cards drawn.
    */
   draws(count: number = 1): Card[] {
     if (this.index + count > this.cards.length)
-      throw new Error('Not enough cards');
+      throw new Error("Not enough cards");
 
     this.index += count;
     return this.cards.slice(this.index - count, this.index);
@@ -61,7 +68,7 @@ export class Deck {
   }
 
   /**
-   * Shuffles the cards with the Fisher-Yates shuffle algorithm.
+   * Shuffles the cards with the [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) algorithm.
    */
   shuffle(): void {
     this.restart();
@@ -78,7 +85,7 @@ export class Deck {
   /**
    * Sorts the cards in the deck.
    *
-   * @param compareFunction Optional. The function used to compare cards. Defaults to `Card.compare`.
+   * @param compareFunction Optional. The function used to compare cards. Defaults to [Card.compare].
    */
   sort(compareFunction: (a: Card, b: Card) => number = Card.compare): void {
     this.restart();

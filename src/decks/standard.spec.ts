@@ -1,13 +1,13 @@
-import * as assert from 'assert';
-import { StandardDeck } from './standard';
-import { Card } from '../card';
+import * as assert from "assert";
+import { StandardDeck } from "./standard";
+import { Card } from "../card";
 
-describe('StandardDeck', function () {
+describe("StandardDeck", function () {
   let deck: StandardDeck;
   let card: Card;
 
-  describe('constructor', function () {
-    it('should create a deck with all 52 standard cards', function () {
+  describe("constructor", function () {
+    it("should create a deck with all 52 standard cards", function () {
       deck = new StandardDeck();
       assert.equal(deck.cards.length, 52);
 
@@ -22,7 +22,7 @@ describe('StandardDeck', function () {
       }
     });
 
-    it('should be able to create a standard deck with joker cards', function () {
+    it("should be able to create a standard deck with joker cards", function () {
       deck = new StandardDeck(2);
       assert.equal(deck.cards.length, 54);
       assert.equal(deck.cards[52].rank, 13);
