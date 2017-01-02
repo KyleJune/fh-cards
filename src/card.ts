@@ -7,12 +7,12 @@ export class Card {
   /**
    * The index of the rank in [RANKS].
    */
-  public rank: number;
+  rank: number;
 
   /**
    * The index of the suit in [SUITS].
    */
-  public suit: number;
+  suit: number;
 
   /**
    * @param rank The rank or index of the rank in [RANKS].
