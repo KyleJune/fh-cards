@@ -7,12 +7,12 @@ export class Deck {
   /**
    * The cards in the deck.
    */
-  cards: Card[];
+  public cards: Card[];
 
   /**
    * The current draw position.
    */
-  index: number;
+  public index: number;
 
   constructor() {
     this.cards = [];
@@ -23,15 +23,15 @@ export class Deck {
    * Adds cards to the bottom of the deck.
    *
    * @param card The [card] you want to add to the deck.
+   *
    * @param cards An array of cards you want to add to the deck.
    */
-  add(card: Card): void;
-  add(cards: Card[]): void;
-  add(x: Card | Card[]): void {
-    if (Array.isArray(x))
+  public add(x: Card | Card[]): void {
+    if (Array.isArray(x)) {
       this.cards.push(...x);
-    else
+    } else {
       this.cards.push(x);
+    }
   }
 
   /**
@@ -39,9 +39,10 @@ export class Deck {
    *
    * @return The card that was drawn.
    */
-  draw(): Card {
-    if (this.index >= this.cards.length)
+  public draw(): Card {
+    if (this.index >= this.cards.length) {
       throw new Error("Not enough cards");
+    }
 
     return this.cards[this.index++];
   }
@@ -52,9 +53,10 @@ export class Deck {
    * @param count The number of cards to draw.
    * @return The cards drawn.
    */
-  draws(count: number = 1): Card[] {
-    if (this.index + count > this.cards.length)
+  public draws(count: number = 1): Card[] {
+    if (this.index + count > this.cards.length) {
       throw new Error("Not enough cards");
+    }
 
     this.index += count;
     return this.cards.slice(this.index - count, this.index);
@@ -63,19 +65,20 @@ export class Deck {
   /**
    * Restarts the deck drawing in its current order.
    */
-  restart(): void {
+  public restart(): void {
     this.index = 0;
   }
 
   /**
-   * Shuffles the cards with the [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) algorithm.
+   * Shuffles the cards with the
+   * [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) algorithm.
    */
-  shuffle(): void {
+  public shuffle(): void {
     this.restart();
 
     for (let i = this.cards.length - 1; i > 0; i--) {
-      let temp: Card = this.cards[i];
-      let randomIndex: number = Math.floor(Math.random() * (i + 1));
+      const temp: Card = this.cards[i];
+      const randomIndex: number = Math.floor(Math.random() * (i + 1));
 
       this.cards[i] = this.cards[randomIndex];
       this.cards[randomIndex] = temp;
@@ -85,9 +88,10 @@ export class Deck {
   /**
    * Sorts the cards in the deck.
    *
-   * @param compareFunction Optional. The function used to compare cards. Defaults to [Card.compare].
+   * @param compareFunction Optional. The function used to compare cards.
+   * Defaults to [Card.compare].
    */
-  sort(compareFunction: (a: Card, b: Card) => number = Card.compare): void {
+  public sort(compareFunction: (a: Card, b: Card) => number = Card.compare): void {
     this.restart();
     this.cards.sort(compareFunction);
   }

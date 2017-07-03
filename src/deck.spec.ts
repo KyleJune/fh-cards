@@ -1,20 +1,20 @@
 import * as assert from "assert";
-import { Deck } from "./deck";
 import { Card } from "./card";
+import { Deck } from "./deck";
 
-describe("Deck", function () {
+describe("Deck", () => {
   let deck: Deck;
   let card: Card;
 
-  describe("constructor", function () {
-    it("should create an empty deck", function () {
+  describe("constructor", () => {
+    it("should create an empty deck", () => {
       deck = new Deck();
       assert.equal(deck.cards.length, 0);
     });
   });
 
-  describe(".add", function () {
-    it("should add a card to the bottom of the deck", function () {
+  describe(".add", () => {
+    it("should add a card to the bottom of the deck", () => {
       card = new Card(0, 0);
       deck.add(card);
       assert.equal(deck.cards[0], card);
@@ -24,8 +24,8 @@ describe("Deck", function () {
       assert.equal(deck.cards[1], card);
     });
 
-    it("should add an array of cards to the bottom of the deck", function () {
-      let cards: Card[] = [];
+    it("should add an array of cards to the bottom of the deck", () => {
+      const cards: Card[] = [];
       cards.push(new Card(2, 0));
       cards.push(new Card(3, 0));
       deck.add(cards);
@@ -34,50 +34,50 @@ describe("Deck", function () {
     });
   });
 
-  describe(".draw", function () {
-    it("should draw a card from the top of the deck", function () {
+  describe(".draw", () => {
+    it("should draw a card from the top of the deck", () => {
       for (let i = 0; i < 4; i++) {
         card = deck.draw();
         assert.equal(card, deck.cards[i]);
       }
     });
 
-    it("should throw error if there are no cards left to draw", function () {
-      assert.throws(function () {
+    it("should throw error if there are no cards left to draw", () => {
+      assert.throws(() => {
         deck.draw();
       });
     });
   });
 
-  describe(".draws", function () {
+  describe(".draws", () => {
     let cards: Card[];
 
-    it("should draw 1 card by default", function () {
-      deck.index = 0; // Manually restart deck
+    it("should draw 1 card by default", () => {
+      deck.index = 0;
 
       cards = deck.draws();
       assert.equal(cards.length, 1);
       assert.equal(cards[0], deck.cards[0]);
     });
 
-    it("should be able to draw more than 1 cards", function () {
+    it("should be able to draw more than 1 cards", () => {
       cards = deck.draws(2);
       assert.equal(cards.length, 2);
       assert.equal(cards[0], deck.cards[1]);
       assert.equal(cards[1], deck.cards[2]);
     });
 
-    it("should throw error if there are not enough cards to draw", function () {
-      assert.throws(function () {
+    it("should throw error if there are not enough cards to draw", () => {
+      assert.throws(() => {
         deck.draws(2);
       });
     });
   });
 
-  describe(".restart", function () {
-    it("should restart the deck in the same order", function () {
+  describe(".restart", () => {
+    it("should restart the deck in the same order", () => {
       deck.restart();
-      let cards: Card[] = deck.draws(4);
+      const cards: Card[] = deck.draws(4);
       deck.restart();
       assert.equal(deck.index, 0);
       for (let i = 0; i < 4; i++) {
@@ -87,9 +87,9 @@ describe("Deck", function () {
     });
   });
 
-  describe(".shuffle", function () {
+  describe(".shuffle", () => {
     let cards: Card[];
-    it("should shuffle the cards in the deck", function () {
+    it("should shuffle the cards in the deck", () => {
       deck.restart();
       cards = deck.draws(4);
       deck.restart();
@@ -106,18 +106,19 @@ describe("Deck", function () {
           }
         }
 
-        if (isDifferent)
+        if (isDifferent) {
           break;
+        }
       }
 
       assert.equal(isDifferent, true);
     });
 
-    it("should not remove cards or duplicate cards", function () {
+    it("should not remove cards or duplicate cards", () => {
       deck.restart();
 
       assert.equal(deck.cards.length, cards.length);
-      let hasCards: boolean[] = [false, false, false, false];
+      const hasCards: boolean[] = [false, false, false, false];
       for (let i = 0; i < 4; i++) {
         card = deck.draw();
         hasCards[cards.indexOf(card)] = true;
@@ -135,8 +136,8 @@ describe("Deck", function () {
     });
   });
 
-  describe(".sort", function () {
-    it("should sort use default compare function if none provided", function () {
+  describe(".sort", () => {
+    it("should sort use default compare function if none provided", () => {
       deck.sort();
 
       for (let i = 0; i < 4; i++) {
@@ -146,7 +147,7 @@ describe("Deck", function () {
       }
     });
 
-    it("should sort using a provided compare function", function () {
+    it("should sort using a provided compare function", () => {
       deck.sort(function reverseCards(a: Card, b: Card) {
         return -1 * Card.compare(a, b);
       });

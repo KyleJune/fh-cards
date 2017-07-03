@@ -35,7 +35,7 @@ The index of the suit in [SUITS].
 
 ### toFullName()
 
-Get the full name of the card.  
+Get the full name of the card.
 Examples provided below.
 
 ```ts

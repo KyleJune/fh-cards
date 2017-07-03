@@ -1,13 +1,13 @@
 {
   "name": "fh-cards",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A standard 52-card deck library",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
   "dependencies": {},
   "devDependencies": {
     "mocha": "^3.2.0",
-    "tslint": "^4.2.0",
+    "tslint": "^5.2.0",
     "typescript": "^2.1.4",
     "typings": "^2.0.0"
   },

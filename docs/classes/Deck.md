@@ -52,7 +52,8 @@ Restarts the deck drawing in its current order.
 
 ### shuffle()
 
-Shuffles the cards with the [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) algorithm.
+Shuffles the cards with the
+[Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) algorithm.
 
 ### sort(\[compareFunction\])
 
